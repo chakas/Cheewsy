@@ -1,0 +1,165 @@
+<html>
+  <head>
+    <title>Cheewsy-Lets Chew</title>
+    <!-- Angulars Material CSS now available via Google CDN; version 0.7 used here -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <!-- Site Properities -->
+    <link rel="stylesheet" type="text/css" href="css/semantic.css">
+    <link rel="stylesheet" type="text/css" href="css/homepage.css">
+    <link href="css/main.css" rel='stylesheet' type='text/css' />
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
+    <script src="js/semantic.js"></script>
+    <script src="http://hammerjs.github.io/dist/hammer.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-touch.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.6/angular-aria.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <!-- Angular Material Javascript now available via Google CDN; version 0.7 used here -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.7.0/angular-material.min.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.7.0/angular-material.min.css">
+    <link href="http://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet" type="text/css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet" type="text/css">
+    <style type="text/css">
+          .section {
+            clear: both;
+            padding: 50px;
+            margin: 0px;
+          }
+
+          /*  COLUMN SETUP  */
+          .col {
+            display: block;
+            float:left;
+            margin: 1% 0 1% 1.6%;
+          }
+          .col:first-child { margin-left: 0; }
+
+          /*  GROUPING  */
+          .group:before,
+          .group:after { content:""; display:table; }
+          .group:after { clear:both;}
+          .group { zoom:1; /* For IE 6/7 */ }
+          /*  GRID OF FOUR  */
+          .span_4_of_4 {
+            width: 23%;
+          }
+          .span_3_of_4 {
+            width: 23%;
+          }
+          .span_2_of_4 {
+            width: 23%;
+          }
+          .span_1_of_4 {
+            width: 23.8%;
+          }
+
+          /*  GO FULL WIDTH BELOW 480 PIXELS */
+          @media only screen and (max-width: 480px) {
+            .col {  margin: 1% 0 1% 0%; }
+            .span_1_of_4, .span_2_of_4, .span_3_of_4, .span_4_of_4 { width: 100%; }
+          }
+          .ui.wide.left.sidebar, .ui.wide.right.sidebar{
+            width:15%;
+            background-color: rgb(83,83,100);
+          }
+          .ng-scope{
+            padding-left: 90px;
+            background-color: rgb(205,205,205);
+          }
+    </style>
+  </head>
+  <body id="body" class="preload">
+      <!-- Sidebar navigation-->
+      <div class="ui visible left vertical inverted labeled icon  wide sidebar menu">
+          <a class="item">
+            <i class="home icon"></i>
+            Home
+          </a>
+          <a class="item">
+            <i class="block layout icon"></i>
+            Topics
+          </a>
+          <a class="item">
+            <i class="smile icon"></i>
+            Friends
+          </a>
+          <a class="item">
+            <i class="calendar icon"></i>
+            History
+          </a>
+          <a class="item">
+            <i class="mail icon"></i>
+            Messages
+          </a>
+          <a class="item">
+            <i class="chat icon"></i>
+            Discussions
+          </a>
+          <a class="item">
+            <i class="trophy icon"></i>
+            Achievements
+          </a>
+          <a class="item">
+            <i class="shop icon"></i>
+            Store
+          </a>
+          <a class="item">
+            <i class="settings icon"></i>
+            Settings
+          </a>
+      </div> 
+      <!-- Header Bar-->
+      <nav class="fixed-nav-bar">
+      <div id="wrap">
+            <!-- <div class="ui icon input">
+                <input type="text" placeholder="Search...">
+                <i class="circular search icon"></i>
+            </div> -->
+      </div>
+    </nav>    
+      <div ng-app="chewsy" class="ng-scope">
+          <div ng-controller="apiVendorDataCtrl">
+              <div ng-include="html/sidebar.html"></div>
+              <div ng-include="html/header.html"></div>
+              <div class="section group" ng-repeat="names in divsRep">
+                  <div class="col span_{{($index+1)%4==0?4:($index+1)%4}}_of_4"  ng-repeat="x in names">
+                      <div class="ui card">
+                        <div class="image">
+                          <img ng-src="{{x.image}}">
+                        </div>
+                        <div class="content">
+                          <a class="header" ng-href="{{x.order_url}}" target="_new">{{x.name}}</a>
+                          <div class="meta">
+                            <span class="date"><img ng-show="x.food_type=='Vegetarian'" src="images/veg.png" aria-hidden="false">
+                                <img ng-show="x.food_type=='Non-Vegetarian' || item.food_type=='Non-vegetarian'" src="images/non-veg.png" aria-hidden="true" class="ng-hide">
+                                {{x.food_type}}</span>
+                            <div style="float:right">
+                              <p>&#8377;{{x.cost}}<p>
+                            </div>
+                          </div>
+                          <div class="description">
+                            {{x.description}}
+                          </div>
+                        </div>
+                        <div class="extra content">
+                          <a>
+                            <i class="user icon"></i>
+                            22 Friends
+                          </a>
+                        </div>
+                    </div>
+                </div>
+              </div>
+          </div>
+      </div>
+  <script src="js/main.js"></script>
+  <!--<script src="js/homepage.js"></script>-->
+</body>
+</html>
